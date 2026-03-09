@@ -1,10 +1,16 @@
 import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 import { posts } from "@/data/posts";
 
-const baseUrl =
-  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "http://localhost:3000";
+function getBaseUrl(req: NextRequest) {
+  const envUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
+  if (envUrl) return envUrl;
 
-function buildRssXml() {
+  const url = new URL(req.url);
+  return url.origin;
+}
+
+function buildRssXml(baseUrl: string) {
   const itemsXml = posts
     .map(
       (post) => `
@@ -29,8 +35,9 @@ function buildRssXml() {
 </rss>`;
 }
 
-export function GET() {
-  const xml = buildRssXml();
+export function GET(req: NextRequest) {
+  const baseUrl = getBaseUrl(req);
+  const xml = buildRssXml(baseUrl);
   return new NextResponse(xml, {
     status: 200,
     headers: {
