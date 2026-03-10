@@ -18,7 +18,7 @@ function renderContent(content: string) {
       if (innerLines.length > 2 && innerLines[innerLines.length - 1].startsWith("```")) {
         const code = innerLines.slice(1, -1).join("\n");
         blocks.push(
-          <pre key={i} className="my-6 overflow-x-auto rounded-xl bg-zinc-950 px-5 py-4 text-xs text-zinc-300 shadow-lg sm:text-sm">
+          <pre key={i} className="my-6 overflow-x-auto rounded-xl bg-zinc-900/50 border border-zinc-800 px-5 py-4 text-xs text-zinc-300 shadow-lg sm:text-sm">
             <code className="font-mono">{code}</code>
           </pre>
         );
@@ -30,7 +30,7 @@ function renderContent(content: string) {
           i++;
         }
         blocks.push(
-          <pre key={i} className="my-6 overflow-x-auto rounded-xl bg-zinc-950 px-5 py-4 text-xs text-zinc-300 shadow-lg sm:text-sm">
+          <pre key={i} className="my-6 overflow-x-auto rounded-xl bg-zinc-900/50 border border-zinc-800 px-5 py-4 text-xs text-zinc-300 shadow-lg sm:text-sm">
             <code className="font-mono">{codeLines.join("\n")}</code>
           </pre>
         );
@@ -42,7 +42,7 @@ function renderContent(content: string) {
     // h3 헤딩
     if (block.startsWith("### ")) {
       blocks.push(
-        <h3 key={i} className="mt-10 mb-4 text-xl font-bold tracking-tight text-zinc-900 sm:text-2xl">
+        <h3 key={i} className="mt-10 mb-4 text-xl font-bold tracking-tight text-white sm:text-2xl">
           {block.slice(4)}
         </h3>
       );
@@ -53,7 +53,7 @@ function renderContent(content: string) {
     // h2 헤딩
     if (block.startsWith("## ")) {
       blocks.push(
-        <h2 key={i} className="mt-14 mb-5 border-b border-zinc-100 pb-2 text-2xl font-extrabold tracking-tight text-zinc-900 sm:text-3xl">
+        <h2 key={i} className="mt-14 mb-5 border-b border-zinc-800 pb-2 text-2xl font-extrabold tracking-tight text-white sm:text-3xl">
           {block.slice(3)}
         </h2>
       );
@@ -65,7 +65,7 @@ function renderContent(content: string) {
     if (/^\d+\.\s/.test(block)) {
       const items = block.split("\n").map((line) => line.replace(/^\d+\.\s/, ""));
       blocks.push(
-        <ol key={i} className="my-6 list-decimal space-y-3 pl-6 text-zinc-700">
+        <ol key={i} className="my-6 list-decimal space-y-3 pl-6 text-zinc-300">
           {items.map((item, j) => (
             <li key={j} className="leading-relaxed">{parseInlineStyles(item)}</li>
           ))}
@@ -79,7 +79,7 @@ function renderContent(content: string) {
     if (/^-\s/.test(block)) {
       const items = block.split("\n").map((line) => line.replace(/^-\s/, ""));
       blocks.push(
-        <ul key={i} className="my-6 list-disc space-y-3 pl-6 text-zinc-700">
+        <ul key={i} className="my-6 list-disc space-y-3 pl-6 text-zinc-300">
           {items.map((item, j) => (
             <li key={j} className="leading-relaxed">{parseInlineStyles(item)}</li>
           ))}
@@ -96,7 +96,7 @@ function renderContent(content: string) {
         .map((line) => line.replace(/^> /, ""))
         .join(" ");
       blocks.push(
-        <blockquote key={i} className="my-8 border-l-4 border-emerald-500 bg-emerald-50/50 px-6 py-4 text-lg italic text-emerald-900">
+        <blockquote key={i} className="my-8 border-l-4 border-emerald-500 bg-emerald-950/20 px-6 py-4 text-lg italic text-emerald-100">
           {quoteText}
         </blockquote>
       );
@@ -106,7 +106,7 @@ function renderContent(content: string) {
 
     // 수평선 (---)
     if (block === "---") {
-      blocks.push(<hr key={i} className="my-12 border-zinc-200" />);
+      blocks.push(<hr key={i} className="my-12 border-zinc-800" />);
       i++;
       continue;
     }
@@ -114,7 +114,7 @@ function renderContent(content: string) {
     // 일반 문단 (빈 블록 제외)
     if (block.length > 0) {
       blocks.push(
-        <p key={i} className="mb-6 leading-8 text-zinc-800">
+        <p key={i} className="mb-6 leading-8 text-zinc-200">
           {parseInlineStyles(block)}
         </p>
       );
@@ -131,7 +131,7 @@ function parseInlineStyles(text: string) {
   const parts = text.split(/(\*\*[^*]+\*\*)/g);
   return parts.map((part, j) =>
     part.startsWith("**") && part.endsWith("**") ? (
-      <strong key={j} className="font-bold text-zinc-950">
+      <strong key={j} className="font-bold text-white">
         {part.slice(2, -2)}
       </strong>
     ) : (
@@ -195,14 +195,14 @@ export default async function PostPage({
 
   if (!post) {
     return (
-      <div className="mx-auto flex min-h-screen w-full max-w-3xl flex-col gap-4 px-6 py-20">
+      <div className="mx-auto flex min-h-screen w-full max-w-3xl flex-col gap-4 px-6 py-20 text-white">
         <h1 className="text-2xl font-bold">글을 찾을 수 없습니다.</h1>
-        <p className="text-zinc-600">
+        <p className="text-zinc-400">
           주소가 잘못되었거나, 글이 삭제된 것 같아요.
         </p>
         <Link
           href="/"
-          className="mt-4 inline-flex font-medium text-emerald-600 hover:text-emerald-700"
+          className="mt-4 inline-flex font-medium text-emerald-400 hover:text-emerald-300"
         >
           홈으로 돌아가기 →
         </Link>
@@ -217,19 +217,19 @@ export default async function PostPage({
       <header className="mb-12 space-y-6">
         <Link
           href={`/categories/${post.category}`}
-          className="inline-flex rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700"
+          className="inline-flex rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-400"
         >
           {category.label}
         </Link>
-        <h1 className="text-4xl font-extrabold tracking-tight text-zinc-900 sm:text-5xl">
+        <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl">
           {post.title}
         </h1>
-        <div className="flex items-center gap-3 text-sm text-zinc-500">
+        <div className="flex items-center gap-3 text-sm text-zinc-400">
           <span>{post.publishedAt}</span>
           <span>·</span>
           <span>{post.readTime} 소요</span>
         </div>
-        <p className="border-l-4 border-zinc-200 pl-4 text-xl leading-relaxed text-zinc-600 italic">
+        <p className="border-l-4 border-zinc-800 pl-4 text-xl leading-relaxed text-zinc-300 italic">
           {post.summary}
         </p>
       </header>
@@ -238,19 +238,19 @@ export default async function PostPage({
         {renderContent(post.content)}
       </div>
 
-      <footer className="mt-20 border-t border-zinc-100 pt-10">
+      <footer className="mt-20 border-t border-zinc-800 pt-10">
         <div className="mb-6 flex flex-wrap gap-2">
           {post.tags.map((tag) => (
             <span
               key={tag}
-              className="inline-flex rounded-lg bg-zinc-50 px-3 py-1.5 text-sm font-medium text-zinc-600"
+              className="inline-flex rounded-lg bg-zinc-900 px-3 py-1.5 text-sm font-medium text-zinc-400 border border-zinc-800"
             >
               #{tag}
             </span>
           ))}
         </div>
-        <div className="rounded-2xl bg-zinc-50 p-8 text-sm text-zinc-500 leading-relaxed">
-          <p className="font-semibold text-zinc-900 mb-2">Notice</p>
+        <div className="rounded-2xl bg-zinc-900 p-8 text-sm text-zinc-400 border border-zinc-800 leading-relaxed shadow-inner">
+          <p className="font-semibold text-white mb-2 font-mono tracking-wider uppercase text-[10px]">Notice</p>
           <p>
             이 영역에는 애드센스 광고, 쿠팡/아마존 제휴 링크, 전자책 링크 등을
             배치할 수 있습니다. 본문 내용이 도움이 되셨다면 아래 공유 버튼을 눌러주세요.

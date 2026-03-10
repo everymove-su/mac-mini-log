@@ -56,3 +56,9 @@
  GET /categories/it 200 in 73ms (compile: 55ms, generate-params: 1200µs, render: 18ms)
  GET /posts/m4-mac-mini-review 200 in 21ms (compile: 7ms, generate-params: 1861µs, render: 14ms)
  GET /posts/macmini-m4-windows-user-settings 200 in 26ms (compile: 7ms, generate-params: 2ms, render: 19ms)
+ GET / 200 in 29ms (compile: 6ms, render: 23ms)
+✓ Compiled in 22ms
+ GET / 200 in 67ms (compile: 4ms, render: 62ms)
+ GET / 200 in 45ms (compile: 5ms, render: 40ms)
+ GET /categories/it 200 in 28ms (compile: 11ms, generate-params: 3ms, render: 17ms)
+ GET /posts/m4-mac-mini-review 200 in 75ms (compile: 54ms, generate-params: 1257µs, render: 21ms)
