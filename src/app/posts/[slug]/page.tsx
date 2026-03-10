@@ -2,6 +2,146 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getPostBySlug, posts, CATEGORIES } from "@/data/posts";
 
+/** 간단한 마크다운 블록 렌더러 (외부 라이브러리 없이) */
+function renderContent(content: string) {
+  const blocks: React.ReactNode[] = [];
+  const rawBlocks = content.split("\n\n");
+  let i = 0;
+
+  while (i < rawBlocks.length) {
+    const block = rawBlocks[i].trim();
+
+    // 코드블록 시작
+    if (block.startsWith("```")) {
+      const codeLines: string[] = [];
+      const innerLines = block.split("\n");
+      if (innerLines.length > 2 && innerLines[innerLines.length - 1].startsWith("```")) {
+        const code = innerLines.slice(1, -1).join("\n");
+        blocks.push(
+          <pre key={i} className="my-6 overflow-x-auto rounded-xl bg-zinc-950 px-5 py-4 text-xs text-zinc-300 shadow-lg sm:text-sm">
+            <code className="font-mono">{code}</code>
+          </pre>
+        );
+      } else {
+        codeLines.push(...innerLines.slice(1));
+        i++;
+        while (i < rawBlocks.length && !rawBlocks[i].trim().startsWith("```")) {
+          codeLines.push(rawBlocks[i]);
+          i++;
+        }
+        blocks.push(
+          <pre key={i} className="my-6 overflow-x-auto rounded-xl bg-zinc-950 px-5 py-4 text-xs text-zinc-300 shadow-lg sm:text-sm">
+            <code className="font-mono">{codeLines.join("\n")}</code>
+          </pre>
+        );
+      }
+      i++;
+      continue;
+    }
+
+    // h3 헤딩
+    if (block.startsWith("### ")) {
+      blocks.push(
+        <h3 key={i} className="mt-10 mb-4 text-xl font-bold tracking-tight text-zinc-900 sm:text-2xl">
+          {block.slice(4)}
+        </h3>
+      );
+      i++;
+      continue;
+    }
+
+    // h2 헤딩
+    if (block.startsWith("## ")) {
+      blocks.push(
+        <h2 key={i} className="mt-14 mb-5 border-b border-zinc-100 pb-2 text-2xl font-extrabold tracking-tight text-zinc-900 sm:text-3xl">
+          {block.slice(3)}
+        </h2>
+      );
+      i++;
+      continue;
+    }
+
+    // 순서 있는 리스트 (1. )
+    if (/^\d+\.\s/.test(block)) {
+      const items = block.split("\n").map((line) => line.replace(/^\d+\.\s/, ""));
+      blocks.push(
+        <ol key={i} className="my-6 list-decimal space-y-3 pl-6 text-zinc-700">
+          {items.map((item, j) => (
+            <li key={j} className="leading-relaxed">{parseInlineStyles(item)}</li>
+          ))}
+        </ol>
+      );
+      i++;
+      continue;
+    }
+
+    // 순서 없는 리스트 (- )
+    if (/^-\s/.test(block)) {
+      const items = block.split("\n").map((line) => line.replace(/^-\s/, ""));
+      blocks.push(
+        <ul key={i} className="my-6 list-disc space-y-3 pl-6 text-zinc-700">
+          {items.map((item, j) => (
+            <li key={j} className="leading-relaxed">{parseInlineStyles(item)}</li>
+          ))}
+        </ul>
+      );
+      i++;
+      continue;
+    }
+
+    // 인용문 (blockquote)
+    if (block.startsWith("> ")) {
+      const quoteText = block
+        .split("\n")
+        .map((line) => line.replace(/^> /, ""))
+        .join(" ");
+      blocks.push(
+        <blockquote key={i} className="my-8 border-l-4 border-emerald-500 bg-emerald-50/50 px-6 py-4 text-lg italic text-emerald-900">
+          {quoteText}
+        </blockquote>
+      );
+      i++;
+      continue;
+    }
+
+    // 수평선 (---)
+    if (block === "---") {
+      blocks.push(<hr key={i} className="my-12 border-zinc-200" />);
+      i++;
+      continue;
+    }
+
+    // 일반 문단 (빈 블록 제외)
+    if (block.length > 0) {
+      blocks.push(
+        <p key={i} className="mb-6 leading-8 text-zinc-800">
+          {parseInlineStyles(block)}
+        </p>
+      );
+    }
+
+    i++;
+  }
+
+  return blocks;
+}
+
+/** 인라인 스타일 (볼드 등) 처리 */
+function parseInlineStyles(text: string) {
+  const parts = text.split(/(\*\*[^*]+\*\*)/g);
+  return parts.map((part, j) =>
+    part.startsWith("**") && part.endsWith("**") ? (
+      <strong key={j} className="font-bold text-zinc-950">
+        {part.slice(2, -2)}
+      </strong>
+    ) : (
+      part
+    )
+  );
+}
+
+
+
 type Params = {
   slug: string;
 };
@@ -55,14 +195,14 @@ export default async function PostPage({
 
   if (!post) {
     return (
-      <div className="mx-auto flex min-h-screen w-full max-w-4xl flex-col gap-4 px-4 py-10 sm:px-6 lg:px-8">
-        <h1 className="text-xl font-semibold">글을 찾을 수 없습니다.</h1>
-        <p className="text-sm text-zinc-600">
+      <div className="mx-auto flex min-h-screen w-full max-w-3xl flex-col gap-4 px-6 py-20">
+        <h1 className="text-2xl font-bold">글을 찾을 수 없습니다.</h1>
+        <p className="text-zinc-600">
           주소가 잘못되었거나, 글이 삭제된 것 같아요.
         </p>
         <Link
           href="/"
-          className="mt-2 inline-flex text-sm font-medium text-emerald-700 hover:text-emerald-800"
+          className="mt-4 inline-flex font-medium text-emerald-600 hover:text-emerald-700"
         >
           홈으로 돌아가기 →
         </Link>
@@ -73,51 +213,50 @@ export default async function PostPage({
   const category = CATEGORIES[post.category];
 
   return (
-    <article className="mx-auto flex min-h-screen w-full max-w-4xl flex-col gap-8 px-4 py-10 sm:px-6 lg:px-8">
-      <header className="space-y-3 border-b border-zinc-200 pb-5">
-        <div className="flex items-center gap-2 text-xs text-zinc-500">
-          <Link
-            href={`/categories/${post.category}`}
-            className="rounded-full bg-emerald-50 px-2.5 py-0.5 text-[11px] font-medium text-emerald-700"
-          >
-            {category.label}
-          </Link>
-          <span>·</span>
-          <span>{post.readTime} 소요</span>
-          <span>·</span>
-          <span>{post.publishedAt}</span>
-        </div>
-        <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+    <article className="mx-auto flex min-h-screen w-full max-w-3xl flex-col px-6 py-20">
+      <header className="mb-12 space-y-6">
+        <Link
+          href={`/categories/${post.category}`}
+          className="inline-flex rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700"
+        >
+          {category.label}
+        </Link>
+        <h1 className="text-4xl font-extrabold tracking-tight text-zinc-900 sm:text-5xl">
           {post.title}
         </h1>
-        <p className="max-w-2xl text-sm text-zinc-600 sm:text-base">
+        <div className="flex items-center gap-3 text-sm text-zinc-500">
+          <span>{post.publishedAt}</span>
+          <span>·</span>
+          <span>{post.readTime} 소요</span>
+        </div>
+        <p className="border-l-4 border-zinc-200 pl-4 text-xl leading-relaxed text-zinc-600 italic">
           {post.summary}
         </p>
       </header>
 
-      <section className="prose prose-zinc max-w-none text-sm sm:text-base">
-        {post.content.split("\n\n").map((block, index) => (
-          <p key={index}>{block}</p>
-        ))}
-      </section>
+      <div className="text-lg">
+        {renderContent(post.content)}
+      </div>
 
-      <section className="space-y-2 border-t border-zinc-200 pt-4 text-xs text-zinc-500">
-        <div>
-          태그:{" "}
+      <footer className="mt-20 border-t border-zinc-100 pt-10">
+        <div className="mb-6 flex flex-wrap gap-2">
           {post.tags.map((tag) => (
             <span
               key={tag}
-              className="mr-1 inline-flex rounded-full bg-zinc-100 px-2 py-0.5 text-[11px]"
+              className="inline-flex rounded-lg bg-zinc-50 px-3 py-1.5 text-sm font-medium text-zinc-600"
             >
               #{tag}
             </span>
           ))}
         </div>
-        <p>
-          이 영역에는 애드센스 광고, 쿠팡/아마존 제휴 링크, 전자책 링크 등을
-          배치할 수 있습니다.
-        </p>
-      </section>
+        <div className="rounded-2xl bg-zinc-50 p-8 text-sm text-zinc-500 leading-relaxed">
+          <p className="font-semibold text-zinc-900 mb-2">Notice</p>
+          <p>
+            이 영역에는 애드센스 광고, 쿠팡/아마존 제휴 링크, 전자책 링크 등을
+            배치할 수 있습니다. 본문 내용이 도움이 되셨다면 아래 공유 버튼을 눌러주세요.
+          </p>
+        </div>
+      </footer>
     </article>
   );
 }

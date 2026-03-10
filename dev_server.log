@@ -1,0 +1,35 @@
+
+> my-blog@0.1.0 dev
+> next dev
+
+▲ Next.js 16.1.6 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.35.153:3000
+
+✓ Starting...
+✓ Ready in 368ms
+⨯ ./src/data/posts.ts
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 2 bytes from index 670
+
+Import trace:
+  Server Component:
+    ./src/data/posts.ts
+    ./src/app/page.tsx
+
+
+ HEAD / 500 in 161ms (compile: 112ms, render: 49ms)
+ GET /posts 404 in 156ms (compile: 90ms, render: 66ms)
+ GET /posts 404 in 39ms (compile: 5ms, render: 34ms)
+ GET /posts 404 in 35ms (compile: 4ms, render: 31ms)
+ GET /posts 404 in 22ms (compile: 4ms, render: 18ms)
+ GET /posts 404 in 39ms (compile: 5ms, render: 35ms)
+ GET /posts 404 in 34ms (compile: 3ms, render: 32ms)
+ GET /posts 404 in 20ms (compile: 5ms, render: 15ms)
+✓ Compiled in 207ms
+ GET /posts 404 in 17ms (compile: 1199µs, render: 15ms)
+ HEAD / 200 in 90ms (compile: 41ms, render: 49ms)
+[?25h
