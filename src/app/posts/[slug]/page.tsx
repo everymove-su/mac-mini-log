@@ -118,7 +118,7 @@ function renderContent(content: string) {
         const alt = match[1];
         const src = match[2];
         blocks.push(
-          <div key={i} className="my-10 overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900 shadow-2xl">
+          <div key={i} className="my-10 mx-auto max-w-2xl overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900 shadow-2xl">
             <img 
               src={src} 
               alt={alt} 
