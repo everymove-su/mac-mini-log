@@ -111,6 +111,31 @@ function renderContent(content: string) {
       continue;
     }
 
+    // 이미지 (![alt](url))
+    if (block.startsWith("![")) {
+      const match = block.match(/!\[(.*?)\]\((.*?)\)/);
+      if (match) {
+        const alt = match[1];
+        const src = match[2];
+        blocks.push(
+          <div key={i} className="my-10 overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900 shadow-2xl">
+            <img 
+              src={src} 
+              alt={alt} 
+              className="w-full h-auto object-cover hover:scale-[1.02] transition-transform duration-500" 
+            />
+            {alt && (
+              <p className="px-4 py-3 text-center text-sm text-zinc-500 border-t border-zinc-800 italic">
+                {alt}
+              </p>
+            )}
+          </div>
+        );
+        i++;
+        continue;
+      }
+    }
+
     // 일반 문단 (빈 블록 제외)
     if (block.length > 0) {
       blocks.push(
