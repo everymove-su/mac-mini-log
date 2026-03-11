@@ -14,7 +14,7 @@ const PILLAR_CARDS = [
   },
   {
     title: "주식 분석",
-    description: "데이터 기반 주식 인사이트로 자산을 설계하고 관리하는 방법을 기록합니다.",
+    description: "데이터 기반 주식 인사이트로 자산을 설계하고 관리하는 방법과 공모주 분석을 기록합니다.",
     href: "/categories/finance",
     label: "재테크",
   },

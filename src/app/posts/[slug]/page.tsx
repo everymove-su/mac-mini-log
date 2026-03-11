@@ -136,6 +136,74 @@ function renderContent(content: string) {
       }
     }
 
+    // 테이블 (| Col | Col |)
+    if (block.startsWith("|")) {
+      const rows = block.split("\n").filter(row => row.trim().length > 0);
+      if (rows.length >= 2) {
+        const headerRow = rows[0].split("|").filter((_, j) => j > 0 && j < rows[0].split("|").length - 1).map(c => c.trim());
+        const bodyRows = rows.slice(2).map(row => row.split("|").filter((_, j) => j > 0 && j < row.split("|").length - 1).map(c => c.trim()));
+        
+        blocks.push(
+          <div key={i} className="my-10 overflow-x-auto rounded-xl border border-zinc-800 bg-zinc-900/30">
+            <table className="w-full text-left text-sm">
+              <thead className="bg-zinc-800/50 text-white border-b border-zinc-800">
+                <tr>
+                  {headerRow.map((cell, j) => (
+                    <th key={j} className="px-4 py-3 font-bold">{cell}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-zinc-800 text-zinc-300">
+                {bodyRows.map((row, j) => (
+                  <tr key={j} className="hover:bg-zinc-800/30 transition-colors">
+                    {row.map((cell, k) => (
+                      <td key={k} className="px-4 py-3 whitespace-nowrap">{parseInlineStyles(cell)}</td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        );
+        i++;
+        continue;
+      }
+    }
+
+    // 테이블 (| Col | Col |)
+    if (block.startsWith("|")) {
+      const rows = block.split("\n").filter(row => row.trim().length > 0);
+      if (rows.length >= 2) {
+        const headerRow = rows[0].split("|").filter((_, j) => j > 0 && j < rows[0].split("|").length - 1).map(c => c.trim());
+        const bodyRows = rows.slice(2).map(row => row.split("|").filter((_, j) => j > 0 && j < row.split("|").length - 1).map(c => c.trim()));
+        
+        blocks.push(
+          <div key={i} className="my-10 overflow-x-auto rounded-xl border border-zinc-800 bg-zinc-900/30">
+            <table className="w-full text-left text-sm">
+              <thead className="bg-zinc-800/50 text-white border-b border-zinc-800">
+                <tr>
+                  {headerRow.map((cell, j) => (
+                    <th key={j} className="px-4 py-3 font-bold">{cell}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-zinc-800 text-zinc-300">
+                {bodyRows.map((row, j) => (
+                  <tr key={j} className="hover:bg-zinc-800/30 transition-colors">
+                    {row.map((cell, k) => (
+                      <td key={k} className="px-4 py-3 whitespace-nowrap">{parseInlineStyles(cell)}</td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        );
+        i++;
+        continue;
+      }
+    }
+
     // 일반 문단 (빈 블록 제외)
     if (block.length > 0) {
       blocks.push(
