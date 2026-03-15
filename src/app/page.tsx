@@ -32,8 +32,10 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  const latestPosts = posts.slice(0, 4);
-
+  const latestPosts = [...posts]
+  .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
+  .slice(0, 4);
+  
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-4xl flex-col gap-10 px-4 py-10 sm:px-6 lg:px-8">
       <section className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm sm:p-8">
