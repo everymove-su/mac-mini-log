@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mac-mini-log.vercel.app/sitemap.xml
