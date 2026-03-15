@@ -82,7 +82,13 @@ export default function RootLayout({
               </p>
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <span>© {new Date().getFullYear()} {siteName}</span>
+                <div className="flex items-center gap-3">
                 <span>Adsense · Affiliate · eBook</span>
+                <span>·</span>
+                <Link href="/privacy" className="hover:text-zinc-900 transition">
+                 개인정보처리방침
+                </Link>
+                </div>
               </div>
             </div>
           </footer>
