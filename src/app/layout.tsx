@@ -22,6 +22,9 @@ export const metadata: Metadata = {
   verification: {
     google: "AGsvaPH00rbj1vlLP4x9lsRlqf8vycNDQiGVEStPfJw",
   },
+  other: {
+    "google-adsense-account": "ca-pub-2349123175482959",
+  },
   title: {
     default: defaultTitle,
     template: `%s | ${siteName}`,
