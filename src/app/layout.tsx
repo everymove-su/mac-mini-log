@@ -19,6 +19,9 @@ const defaultDescription =
   "M4 맥 미니의 성능을 한계까지 활용하는 스마트 라이프 가이드입니다. 데이터 기반의 주식 인사이트로 자산을 관리하고, 정밀한 피트니스 기록으로 건강을 설계하며, 최적의 데스크테리어와 AI 도구로 업무 생산성을 극대화하는 법을 기록합니다.";
 
 export const metadata: Metadata = {
+  verification: {
+    google: "AGsvaPH00rbj1vlLP4x9lsRlqf8vycNDQiGVEStPfJw",
+  },
   title: {
     default: defaultTitle,
     template: `%s | ${siteName}`,
