@@ -42,6 +42,7 @@ export const metadata: Metadata = {
 };
 
 const NAV_ITEMS = [
+  { href: "/posts", label: "전체글" },
   { href: "/categories/it", label: "IT" },
   { href: "/categories/finance", label: "재테크" },
   { href: "/categories/daily", label: "일상" },
