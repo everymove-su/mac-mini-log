@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getPostBySlug, posts, CATEGORIES } from "@/data/posts";
+import { getPostBySlug, getPostsByCategory, posts, CATEGORIES } from "@/data/posts";
 
 function renderContent(content: string) {
   const blocks: React.ReactNode[] = [];
@@ -274,7 +274,38 @@ export default async function PostPage({
       <div className="text-base sm:text-lg">
         {renderContent(post.content)}
       </div>
+      {/* 관련글 추천 */}
+      {(() => {
+        const related = getPostsByCategory(post.category)
+          .filter((p) => p.slug !== post.slug)
+          .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
+          .slice(0, 3);
+        if (related.length === 0) return null;
+        return (
+          <section className="mt-16 border-t border-zinc-200 pt-8">
+            <h2 className="mb-5 text-lg font-bold text-zinc-900">관련 글</h2>
+            <ul className="space-y-3">
+              {related.map((r) => (
+                <li key={r.slug}>
+                  <Link
+                    href={`/posts/${r.slug}`}
+                    className="flex flex-col gap-1 rounded-xl border border-zinc-200 bg-white px-4 py-3 shadow-sm transition hover:border-zinc-300 hover:shadow-md"
+                  >
+                    <span className="text-sm font-semibold text-zinc-900 hover:text-emerald-700">
+                      {r.title}
+                    </span>
+                    <span className="text-xs text-zinc-500 line-clamp-2">
+                      {r.summary}
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        );
+      })()}
 
+      <footer className="mt-16 border-t border-zinc-200 pt-8"></footer>
       <footer className="mt-16 border-t border-zinc-200 pt-8">
         <div className="mb-5 flex flex-wrap gap-2">
           {post.tags.map((tag) => (
