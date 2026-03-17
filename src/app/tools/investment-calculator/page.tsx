@@ -15,15 +15,20 @@ export default function InvestmentCalculatorPage() {
   } | null>(null);
 
   const calculate = () => {
-    const m = parseFloat(monthly) * 10000;
-    const r = parseFloat(rate) / 100 / 12;
-    const n = parseFloat(years) * 12;
+    const m = parseFloat(monthly || "0") * 10000;
+    const annualRate = parseFloat(rate) / 100;
+    const monthlyRate = annualRate / 12;
+    const n = Math.round(parseFloat(years) * 12);
     const p = parseFloat(initial || "0") * 10000;
 
-    if (!m || !r || !n) return;
+    if (!annualRate || !n) return;
 
-    const futureMonthly = m * ((Math.pow(1 + r, n) - 1) / r) * (1 + r);
-    const futureInitial = p * Math.pow(1 + r, n);
+    let futureMonthly = 0;
+    for (let i = 0; i < n; i++) {
+      futureMonthly += m * Math.pow(1 + monthlyRate, n - i);
+    }
+
+    const futureInitial = p * Math.pow(1 + monthlyRate, n);
     const total = Math.round(futureMonthly + futureInitial);
     const principal = Math.round(m * n + p);
     const profit = total - principal;
@@ -68,27 +73,32 @@ export default function InvestmentCalculatorPage() {
 
         {/* 초기 투자금 */}
         <div className="space-y-2">
-          <label className="text-sm font-semibold text-zinc-700">초기 투자금 (만원)</label>
+          <label className="text-sm font-semibold text-zinc-700">
+            초기 투자금 (만원)
+          </label>
           <input
             type="number"
-            placeholder="예: 500"
+            placeholder="예: 500 (없으면 0)"
             value={initial}
             onChange={(e) => setInitial(e.target.value)}
             className="w-full rounded-xl border border-zinc-200 px-4 py-2.5 text-base focus:border-emerald-400 focus:outline-none"
           />
-          <p className="text-xs text-zinc-400">없으면 비워두세요</p>
+          <p className="text-xs text-zinc-400">없으면 0 또는 비워두세요</p>
         </div>
 
         {/* 월 적립금 */}
         <div className="space-y-2">
-          <label className="text-sm font-semibold text-zinc-700">월 적립금 (만원)</label>
+          <label className="text-sm font-semibold text-zinc-700">
+            월 적립금 (만원)
+          </label>
           <input
             type="number"
-            placeholder="예: 30"
+            placeholder="예: 30 (없으면 0)"
             value={monthly}
             onChange={(e) => setMonthly(e.target.value)}
             className="w-full rounded-xl border border-zinc-200 px-4 py-2.5 text-base focus:border-emerald-400 focus:outline-none"
           />
+          <p className="text-xs text-zinc-400">없으면 0 또는 비워두세요</p>
         </div>
 
         {/* 연 수익률 */}
@@ -145,7 +155,7 @@ export default function InvestmentCalculatorPage() {
               placeholder="직접 입력"
               value={years}
               onChange={(e) => setYears(e.target.value)}
-              className="w-full rounded-xl border border-zinc-200 px-4 py-2.5 text-base focus:border-emerald-400 focus:outline-none"
+              className="w-full rounded-xl border border-zinc-200 px-4 py-2.5 text-base focus:border-emerald-400 focus:invoke-none"
             />
             <span className="text-sm text-zinc-500 shrink-0">년</span>
           </div>
@@ -172,11 +182,15 @@ export default function InvestmentCalculatorPage() {
             <div className="grid grid-cols-2 gap-3">
               <div className="rounded-xl bg-white border border-emerald-100 p-3 text-center">
                 <p className="text-xs text-zinc-500 mb-1">총 납입금</p>
-                <p className="text-lg font-bold text-zinc-700">{formatWon(result.principal)}</p>
+                <p className="text-lg font-bold text-zinc-700">
+                  {formatWon(result.principal)}
+                </p>
               </div>
               <div className="rounded-xl bg-white border border-emerald-100 p-3 text-center">
                 <p className="text-xs text-zinc-500 mb-1">총 수익</p>
-                <p className="text-lg font-bold text-emerald-600">+{formatWon(result.profit)}</p>
+                <p className="text-lg font-bold text-emerald-600">
+                  +{formatWon(result.profit)}
+                </p>
               </div>
             </div>
             <div className="rounded-xl bg-white border border-emerald-100 p-3 text-center">
