@@ -49,7 +49,7 @@ const NAV_ITEMS = [
   { href: "/categories/it", label: "IT" },
   { href: "/categories/finance", label: "재테크" },
   { href: "/categories/daily", label: "일상" },
-  { href: "/tools/pace-calculator", label: "도구" },
+  { href: "/tools", label: "도구" },
   { href: "/about", label: "소개" },
 ];
 
