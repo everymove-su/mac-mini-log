@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { posts, CATEGORIES } from "@/data/posts";
+import { publishedPosts as posts, CATEGORIES } from "@/data/posts";
 
 const envBaseUrl =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getPostBySlug, getPostsByCategory, posts, CATEGORIES } from "@/data/posts";
+import { getPostBySlug, getPostsByCategory, publishedPosts, CATEGORIES } from "@/data/posts";
 
 function renderContent(content: string) {
   const blocks: React.ReactNode[] = [];
@@ -191,7 +191,7 @@ type Params = {
 };
 
 export function generateStaticParams() {
-  return posts.map((post) => ({ slug: post.slug }));
+  return publishedPosts.map((post) => ({ slug: post.slug }));
 }
 
 export async function generateMetadata({

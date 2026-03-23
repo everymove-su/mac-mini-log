@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { posts, CATEGORIES } from "@/data/posts";
+import { publishedPosts as posts, CATEGORIES } from "@/data/posts";
 
 const MAIN_COPY =
   "M4 맥 미니의 성능을 한계까지 활용하는 스마트 라이프 가이드입니다. 데이터 기반의 주식 인사이트로 자산을 관리하고, 정밀한 피트니스 기록으로 건강을 설계하며, 최적의 데스크테리어와 AI 도구로 업무 생산성을 극대화하는 법을 기록합니다.";

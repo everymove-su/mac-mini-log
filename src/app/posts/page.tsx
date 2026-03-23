@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { posts, CATEGORIES } from "@/data/posts";
+import { publishedPosts as posts, CATEGORIES } from "@/data/posts";
 
 export const metadata: Metadata = {
   title: "전체글",

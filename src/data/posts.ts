@@ -997,11 +997,26 @@ VSCode 설치가 끝났다면 이제 기존 블로그 코드를 불러올 차례
   },
 ];
 
+// 오늘 날짜를 KST(한국 표준시, UTC+9) 기준으로 반환
+function getTodayKST(): string {
+  const now = new Date();
+  const kstDate = new Date(now.getTime() + 9 * 60 * 60 * 1000);
+  return kstDate.toISOString().split("T")[0];
+}
+
+// publishedAt이 오늘 이하인 글만 발행된 것으로 간주
+export function isPublished(post: PostMeta): boolean {
+  return post.publishedAt <= getTodayKST();
+}
+
+// 발행된 글만 포함한 배열 (예약 발행 지원)
+export const publishedPosts: Post[] = posts.filter(isPublished);
+
 export function getPostBySlug(slug: string): Post | undefined {
-  return posts.find((post) => post.slug === slug);
+  return publishedPosts.find((post) => post.slug === slug);
 }
 
 export function getPostsByCategory(category: CategoryKey): Post[] {
-  return posts.filter((post) => post.category === category);
+  return publishedPosts.filter((post) => post.category === category);
 }
 
