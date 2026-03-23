@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 import Link from "next/link";
 import "./globals.css";
+
+// Google Analytics 측정 ID - Google Analytics에서 발급받은 ID로 교체하세요
+const GA_MEASUREMENT_ID = "G-RHMCN9HYJ8";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -63,6 +67,18 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-zinc-50 text-zinc-900`}
       >
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_MEASUREMENT_ID}');
+          `}
+        </Script>
         <div className="flex min-h-screen flex-col">
           <header className="border-b border-zinc-200 bg-white/80 backdrop-blur">
             <div className="mx-auto flex h-14 w-full max-w-4xl items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -90,12 +106,16 @@ export default function RootLayout({
               </p>
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <span>© {new Date().getFullYear()} {siteName}</span>
-                <div className="flex items-center gap-3">
-                <span>Adsense · Affiliate · eBook</span>
-                <span>·</span>
-                <Link href="/privacy" className="hover:text-zinc-900 transition">
-                 개인정보처리방침
-                </Link>
+                <div className="flex flex-wrap items-center gap-3">
+                  <span>Adsense · Affiliate · eBook</span>
+                  <span>·</span>
+                  <Link href="/privacy" className="hover:text-zinc-900 transition">개인정보처리방침</Link>
+                  <span>·</span>
+                  <Link href="/terms" className="hover:text-zinc-900 transition">이용약관</Link>
+                  <span>·</span>
+                  <Link href="/disclaimer" className="hover:text-zinc-900 transition">면책고지</Link>
+                  <span>·</span>
+                  <Link href="/contact" className="hover:text-zinc-900 transition">문의하기</Link>
                 </div>
               </div>
             </div>

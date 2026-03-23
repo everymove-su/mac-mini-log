@@ -248,9 +248,42 @@ export default async function PostPage({
   }
 
   const category = CATEGORIES[post.category];
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://mac-mini-log.vercel.app";
+  const postUrl = `${siteUrl}/posts/${slug}`;
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.summary,
+    url: postUrl,
+    datePublished: post.publishedAt,
+    dateModified: post.publishedAt,
+    author: {
+      "@type": "Person",
+      name: "everymove-su",
+      url: `${siteUrl}/about`,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "맥미니 로그 (Mac Mini Log)",
+      url: siteUrl,
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": postUrl,
+    },
+    keywords: post.tags.join(", "),
+    articleSection: category.label,
+    inLanguage: "ko-KR",
+  };
 
   return (
     <article className="mx-auto flex min-h-screen w-full max-w-3xl flex-col px-6 py-12">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <header className="mb-10 space-y-5">
         <Link
           href={`/categories/${post.category}`}
