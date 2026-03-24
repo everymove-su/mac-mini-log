@@ -3,11 +3,12 @@ import type { NextRequest } from "next/server";
 import { publishedPosts as posts } from "@/data/posts";
 
 function getBaseUrl(req: NextRequest) {
-  const envUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
-  if (envUrl) return envUrl;
-
+  if (process.env.NEXT_PUBLIC_SITE_URL) {
+    return process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, "");
+  }
   const url = new URL(req.url);
-  return url.origin;
+  // 커스텀 도메인이 있으면 그걸 사용, 없으면 요청 origin 사용
+  return url.host.includes("vercel.app") ? "https://mylogtip.com" : url.origin;
 }
 
 function buildRssXml(baseUrl: string) {
