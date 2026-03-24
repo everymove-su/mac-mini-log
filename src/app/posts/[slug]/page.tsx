@@ -266,7 +266,7 @@ export default async function PostPage({
     },
     publisher: {
       "@type": "Organization",
-      name: "맥미니 로그 (Mac Mini Log)",
+      name: "마이로그팁 (MyLogTip)",
       url: siteUrl,
     },
     mainEntityOfPage: {

@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "면책 고지",
-  description: "맥미니 로그의 콘텐츠 면책 고지입니다. 투자 정보, 광고 고지 등을 확인하세요.",
+  description: "마이로그팁의 콘텐츠 면책 고지입니다. 투자 정보, 광고 고지 등을 확인하세요.",
 };
 
 export default function DisclaimerPage() {

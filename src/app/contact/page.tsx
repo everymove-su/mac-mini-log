@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "문의하기",
-  description: "맥미니 로그 운영자에게 문의하세요. 블로그 제휴, 피드백, 오류 제보 등을 환영합니다.",
+  description: "마이로그팁 운영자에게 문의하세요. 블로그 제휴, 피드백, 오류 제보 등을 환영합니다.",
 };
 
 export default function ContactPage() {

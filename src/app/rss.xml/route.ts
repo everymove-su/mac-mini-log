@@ -27,9 +27,9 @@ function buildRssXml(baseUrl: string) {
   return `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
   <channel>
-    <title>맥미니 로그 (Mac Mini Log)</title>
+    <title>마이로그팁 (MyLogTip)</title>
     <link>${baseUrl}</link>
-    <description>M4 맥 미니 기반 데이터·테크 라이프 블로그</description>
+    <description>재테크·IT·일상을 기록하는 블로그</description>
     ${itemsXml}
   </channel>
 </rss>`;

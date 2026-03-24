@@ -11,7 +11,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
   if (!post) {
     return new ImageResponse(
       <div style={{ width: "100%", height: "100%", background: "#f4f4f5", display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <span style={{ fontSize: 40, color: "#18181b" }}>맥미니 로그</span>
+        <span style={{ fontSize: 40, color: "#18181b" }}>마이로그팁</span>
       </div>
     );
   }
@@ -38,7 +38,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
             letterSpacing: "0.1em",
           }}
         >
-          MAC MINI LOG
+          MYLOGTIP
         </span>
         <span
           style={{

@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "이용약관",
-  description: "맥미니 로그 이용약관입니다.",
+  description: "마이로그팁 이용약관입니다.",
 };
 
 export default function TermsPage() {
@@ -20,7 +20,7 @@ export default function TermsPage() {
         <section className="space-y-3">
           <h2 className="text-lg font-semibold text-zinc-900">1. 서비스 소개</h2>
           <p>
-            맥미니 로그(이하 "본 블로그")는 IT, 재테크, 일상에 관한 개인 블로그입니다.
+            마이로그팁(이하 "본 블로그")는 IT, 재테크, 일상에 관한 개인 블로그입니다.
             본 이용약관은 본 블로그를 이용하는 모든 방문자에게 적용됩니다.
           </p>
         </section>

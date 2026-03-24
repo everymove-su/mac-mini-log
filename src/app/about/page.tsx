@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "소개",
-  description: "맥미니 로그 운영자 everymove-su의 소개 페이지입니다.",
+  description: "마이로그팁 운영자 everymove-su의 소개 페이지입니다.",
 };
 
 export default function AboutPage() {
@@ -29,7 +29,7 @@ export default function AboutPage() {
           </p>
           <p className="mt-3 text-sm leading-relaxed text-zinc-700 sm:text-base">
             예전부터 블로그를 시작해보고 싶었는데, 올해 구체적인 목표가 생기면서 드디어 실행에 옮겼습니다.
-            M4 맥미니를 중심으로 개발환경을 세팅하고, 직접 블로그 사이트를 만들어 운영하고 있어요.
+            M4 맥미니를 중심으로 개발환경을 세팅하고, 직접 블로그 사이트(마이로그팁)를 만들어 운영하고 있어요.
           </p>
         </section>
 

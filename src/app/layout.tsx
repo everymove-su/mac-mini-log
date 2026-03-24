@@ -17,12 +17,13 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const siteName = "맥미니 로그 (Mac Mini Log)";
-const defaultTitle = `${siteName} : 데이터와 테크로 설계하는 고효율 일상`;
+const siteName = "마이로그팁 (MyLogTip)";
+const defaultTitle = `${siteName} : 재테크·IT·일상을 기록하는 블로그`;
 const defaultDescription =
-  "M4 맥 미니의 성능을 한계까지 활용하는 스마트 라이프 가이드입니다. 데이터 기반의 주식 인사이트로 자산을 관리하고, 정밀한 피트니스 기록으로 건강을 설계하며, 최적의 데스크테리어와 AI 도구로 업무 생산성을 극대화하는 법을 기록합니다.";
+  "공모주 청약 전략과 결과, IT 기기 활용법, 마라톤·육아 일상까지 — 데이터와 경험으로 쌓아가는 솔직한 기록 블로그입니다.";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://mylogtip.com"),
   verification: {
     google: "AGsvaPH00rbj1vlLP4x9lsRlqf8vycNDQiGVEStPfJw",
   },
@@ -68,6 +69,12 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-zinc-50 text-zinc-900`}
       >
         <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2349123175482959"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
+        <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
           strategy="afterInteractive"
         />
@@ -102,7 +109,7 @@ export default function RootLayout({
           <footer className="border-t border-zinc-200 bg-white">
             <div className="mx-auto flex w-full max-w-4xl flex-col gap-3 px-4 py-5 text-xs text-zinc-500 sm:px-6 lg:px-8">
               <p className="max-w-2xl leading-relaxed text-zinc-600">
-                맥미니 로그는 최신 IT 기기를 활용해 일상의 생산성을 높이는 실험실입니다. 직접 사용해 본 제품과 검증된 데이터만을 공유합니다.
+                마이로그팁은 재테크, IT, 일상을 솔직하게 기록하는 블로그입니다. 직접 경험한 것들만 공유합니다.
               </p>
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <span>© {new Date().getFullYear()} {siteName}</span>

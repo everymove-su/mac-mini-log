@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "개인정보처리방침",
-  description: "맥미니 로그 개인정보처리방침",
+  description: "마이로그팁 개인정보처리방침",
 };
 
 export default function PrivacyPage() {
@@ -20,7 +20,7 @@ export default function PrivacyPage() {
         <section className="space-y-3">
           <h2 className="text-lg font-semibold text-zinc-900">1. 수집하는 개인정보</h2>
           <p>
-            맥미니 로그(이하 "본 블로그")는 별도의 회원가입 없이 이용 가능하며,
+            마이로그팁(이하 "본 블로그")는 별도의 회원가입 없이 이용 가능하며,
             방문자의 개인정보를 직접 수집하지 않습니다. 단, 제3자 서비스(Google Analytics,
             Google AdSense 등)를 통해 익명의 방문 통계 데이터가 수집될 수 있습니다.
           </p>
