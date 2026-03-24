@@ -5,7 +5,7 @@ import Link from "next/link";
 import "./globals.css";
 
 // Google Analytics 측정 ID - Google Analytics에서 발급받은 ID로 교체하세요
-const GA_MEASUREMENT_ID = "G-RHMCN9HYJ8";
+const GA_MEASUREMENT_ID = "G-4RZ7JKKGHK";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
