@@ -25,7 +25,7 @@ const defaultDescription =
 export const metadata: Metadata = {
   metadataBase: new URL("https://mylogtip.com"),
   verification: {
-    google: "AGsvaPH00rbj1vlLP4x9lsRlqf8vycNDQiGVEStPfJw",
+    google: "CJOi1b5xKqKbYFZJBTwS0EbRvv0vIgrTyaLCKAzsct0",
   },
   other: {
     "google-adsense-account": "ca-pub-9263526402196766",
