@@ -14,7 +14,7 @@ export default function AboutPage() {
           안녕하세요, everymove-su입니다 👋
         </h1>
         <p className="text-base text-zinc-600 sm:text-lg">
-          데이터와 테크로 설계하는 고효율 일상을 기록합니다
+          재테크·IT·일상을 솔직하게 기록합니다
         </p>
       </header>
 
@@ -64,7 +64,7 @@ export default function AboutPage() {
           <ul className="mt-3 space-y-2 text-sm leading-relaxed text-zinc-700 sm:text-base">
             <li className="flex items-start gap-2">
               <span className="mt-0.5 text-emerald-500">•</span>
-              <span><strong className="text-zinc-900">IT</strong> — M4 맥미니 활용법, 개발환경 세팅, 생산성 도구 리뷰</span>
+              <span><strong className="text-zinc-900">IT</strong> — IT 기기 활용법, 개발환경 세팅, 생산성 도구 리뷰</span>
             </li>
             <li className="flex items-start gap-2">
               <span className="mt-0.5 text-emerald-500">•</span>
