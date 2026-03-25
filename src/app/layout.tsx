@@ -92,12 +92,12 @@ export default function RootLayout({
               <Link href="/" className="text-sm font-semibold tracking-tight">
                 {siteName}
               </Link>
-              <nav className="flex items-center gap-3 text-xs sm:text-sm">
+              <nav className="flex items-center gap-1 text-xs sm:gap-3 sm:text-sm">
                 {NAV_ITEMS.map((item) => (
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="rounded-full px-2.5 py-1 text-zinc-600 transition hover:bg-zinc-100 hover:text-zinc-900"
+                    className="whitespace-nowrap rounded-full px-2 py-1 text-zinc-600 transition hover:bg-zinc-100 hover:text-zinc-900 sm:px-2.5"
                   >
                     {item.label}
                   </Link>
