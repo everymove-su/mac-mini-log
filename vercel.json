@@ -1,15 +1,1 @@
-{
-  "redirects": [
-    {
-      "source": "/(.*)",
-      "has": [
-        {
-          "type": "host",
-          "value": "mac-mini-log.vercel.app"
-        }
-      ],
-      "destination": "https://mylogtip.com/$1",
-      "permanent": true
-    }
-  ]
-}
+{}
