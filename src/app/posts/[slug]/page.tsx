@@ -174,16 +174,25 @@ function renderContent(content: string) {
 }
 
 function parseInlineStyles(text: string) {
-  const parts = text.split(/(\*\*[^*]+\*\*)/g);
-  return parts.map((part, j) =>
-    part.startsWith("**") && part.endsWith("**") ? (
-      <strong key={j} className="font-bold text-zinc-900">
-        {part.slice(2, -2)}
-      </strong>
-    ) : (
-      part
-    )
-  );
+  const parts = text.split(/(\*\*[^*]+\*\*|\[[^\]]+\]\([^)]+\))/g);
+  return parts.map((part, j) => {
+    if (part.startsWith("**") && part.endsWith("**")) {
+      return (
+        <strong key={j} className="font-bold text-zinc-900">
+          {part.slice(2, -2)}
+        </strong>
+      );
+    }
+    const linkMatch = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+    if (linkMatch) {
+      return (
+        <a key={j} href={linkMatch[2]} target="_blank" rel="noopener noreferrer" className="font-medium text-emerald-700 underline hover:text-emerald-800">
+          {linkMatch[1]}
+        </a>
+      );
+    }
+    return part;
+  });
 }
 
 type Params = {
