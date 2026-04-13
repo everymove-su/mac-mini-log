@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://mac-mini-log.vercel.app/sitemap.xml
+Sitemap: https://mylogtip.com/sitemap.xml
